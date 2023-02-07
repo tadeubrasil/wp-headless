@@ -8,8 +8,8 @@ import Layout from '../components/layout'
 import { getAllPostsForHome } from '../lib/api'
 import { CMS_NAME } from '../lib/constants'
 
-function HomePage() {
-  return <div>Welcome Wp HeadLess!</div>
+function About() {
+  return <div>Welcome to About!</div>
 }
 
-export default HomePage
+export default About
