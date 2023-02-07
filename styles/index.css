@@ -12,7 +12,7 @@ html{
     
   background:$color-contessa;
   color: $color-white;
-  font-size: calc(100vw / 1920 * 10);
+  font-size: calc(100vw / 1920 * 16);
   line-height: 1;
   overflow: hidden;
   position: fixed;
