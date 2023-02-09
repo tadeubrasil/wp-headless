@@ -1,8 +1,8 @@
-import { TODO } from '../lib/api';
 import Head from 'next/head';
 import {getAllPagesWithSlugs, getPageBySlug} from '../lib/api';
 
 function Page(page) {
+  console.log(page);
   return (
     <div className="flex flex-col p-10">
       <Head>

@@ -238,3 +238,38 @@ export async function getPageBySlug(slug) {
   `);
   return data?.page;
 }
+
+
+export async function getPageByAbout() {
+  const data = await fetchAPI(`
+  {
+    page(id: "about", idType: URI) {
+      title
+      about {
+        title
+        secondTitle
+        highlight {
+          label
+          title
+          imageRight {
+            uri
+          }
+          fieldGroupName
+          imageLeft {
+            uri
+          }
+        }
+        content {
+          label
+          text
+          type
+          image {
+            sourceUrl
+          }
+        }
+      }
+    }
+  }
+  `);
+  return data?.page;
+}
