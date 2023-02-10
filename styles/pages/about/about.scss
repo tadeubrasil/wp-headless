@@ -1,8 +1,12 @@
 .about {
-  @extend %page;
-
-  // background: $color-cadet-blue;
-  // color: $color-bright-grey;
+ /* @extend %page;*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $color-cadet-blue;
+  color: $color-bright-grey;
 }
 .about__wrapper {
     padding-top: 10rem

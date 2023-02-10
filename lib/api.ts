@@ -263,8 +263,8 @@ export async function getPageByAbout() {
           label
           text
           type
-          image {
-            sourceUrl
+          imageContent {
+            uri
           }
         }
       }

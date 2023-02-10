@@ -160,7 +160,7 @@
   }
 }
 .about__content__media__image {
-  @extend %cover;
+ /* @extend %cover;*/
 
   object-fit: cover;
 }

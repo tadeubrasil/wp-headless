@@ -6,13 +6,13 @@
 }
 
 html{
-  @extend %cover;
-    
+   @extend %cover;
+  
   background:$color-contessa;
   color: $color-white;
   font-size: calc(100vw / 1920 * 10);
-  line-height: 1;
- /* overflow: hidden;
+  /*line-height: 1;*/
+ /* ]overflow: hidden;
   position: fixed;
 */
 
@@ -22,8 +22,8 @@ html{
 }
 
 body {
-  @extend %cover;
-  @extend %description-16;
+/*   @extend %cover;
+ */  @extend %description-16;
   font-family: $font-suisse-bp;
   /*position: fixed;*/
 }
@@ -43,7 +43,7 @@ button{
 }
 
 img{
-  opacity: 0;
+ /* opacity: 0;*/
   transition: opacity 0.4s ease;
   vertical-align: middle;
   width: 100%;
@@ -54,8 +54,8 @@ img{
 }
 
 .content {
-  @extend %cover;
-}
+/*   @extend %cover;
+ */}
 
 [data-animation="label"],
 [data-animation="paragraph"],

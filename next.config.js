@@ -14,7 +14,16 @@ module.exports = {
       '1.gravatar.com',
       '2.gravatar.com',
       'secure.gravatar.com',
+      'headless-wp.local',
     ],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'headless-wp.local',
+        port: '',
+        pathname: '/wp-content/uploads/**',
+      },
+    ]
   },
 }
 
@@ -26,3 +35,6 @@ module.exports = {
     includePaths: [path.join(__dirname, 'styles')],
   },
 }
+
+const withTM = require('next-transpile-modules')(['gsap']);
+module.exports = withTM();

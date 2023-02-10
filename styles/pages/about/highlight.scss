@@ -102,7 +102,7 @@
 }
 
 .about__highlight__media_imagem{
-  @extend %cover;
+ /* @extend %cover;*/
 
   object-fit: cover;
 }

@@ -27,7 +27,7 @@
   margin: 0 4rem;
 }
 .about__gallery__media__image {
-  @extend %cover;
+ /* @extend %cover;*/
 
   object-fit: cover;
 }

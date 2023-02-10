@@ -11,11 +11,13 @@ import { CMS_NAME } from '../lib/constants'
 import { client } from '../lib/apollo';
 import { gql } from "@apollo/client";
 import Navigation from '../components/navigation'
+import Preloader from '../components/preloader'
 
 
 function HomePage() {
   return  (
     <div className="container">
+      <Preloader />
       <Navigation></Navigation>
       <Head>
         <title>Headless WP Next Starter</title>
@@ -27,9 +29,6 @@ function HomePage() {
           Headless WordPress Next.js Starter
         </h1>
 
-        <div className="preloader">
-        <span className="preloader__text">"Time is money. We can save you both. Bringing you results through the power of digital."</span>
-        </div>
       </main>
 
     </div>
