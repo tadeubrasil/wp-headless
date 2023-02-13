@@ -24,12 +24,6 @@ function HomePage() {
         <link rel="icon" href="favicon.ico"></link>
       </Head>
 
-      <main>
-        <h1 className="title">
-          Headless WordPress Next.js Starter
-        </h1>
-
-      </main>
 
     </div>
   )

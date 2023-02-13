@@ -7,7 +7,8 @@ import Navigation from "../components/navigation";
 function about(page) {
   console.log(page);
   return (
-    <div>
+    <div className="container">
+      <Navigation></Navigation>
       <Head>
         <title>{page.title}</title>
         <link rel="icon" href="/favicon.ico" />

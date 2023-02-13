@@ -1,19 +1,18 @@
 .preloader {
-/*   @extend %cover; */
   @extend %center;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-
-
-  background: #c97164;
+  height: 100vh;
+  background: $color-bright-grey;
   color: $color-white;
   text-align: center;
+  overflow: hidden;
   /* display: none; */
-  z-index: z('preloader');
+  z-index: 100;
 }
+
 .preloader__text {
   font-size: 4rem;
   max-width: 66rem;
@@ -34,6 +33,9 @@
   bottom: 5.1rem;
   left: 50%;
   transform: translateX(-50%);
+  overflow: hidden;
+  /* display: none; */
+  z-index: 100;
 
   @include media('<phone') {
     font-size: 2.5rem;

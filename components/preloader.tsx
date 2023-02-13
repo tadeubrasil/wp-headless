@@ -1,10 +1,6 @@
 import { useEffect, useRef } from "react";
-
-import each from "lodash/each";
-import { split } from "../animations/utils/text";
 import GSAP from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { Draggable } from "gsap/all";
 
 export default function Preloader() {
   let el = useRef();
@@ -26,6 +22,16 @@ export default function Preloader() {
         each:0.05
       },
     })
+
+    animation.to(".preloader",{
+      delay: 0,
+      duration: 1.5,
+      y: "100%",
+      ease: "expo.out"
+    });
+    animation.to(".preloader",{
+        zIndex: -1
+    });
 
   }, []);
 

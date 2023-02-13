@@ -1,15 +1,12 @@
 .navigation {
   @extend %cover;
-
-  color: $color-white;
-  z-index: 10;
+  color: color-bright-grey;
   position: fixed;
   pointer-events: none;
 }
 
 .navigation__link {
-  font-size: 0;
-  position: absolute;
+  font-size: 20px;
   left: 4rem;
   top: 4rem;
   width: 12.8rem;
@@ -21,7 +18,7 @@
     opacity: 0.5;
   }
 
-  @include media('<phone') {
+  @include media("<phone") {
     left: 5rem;
     top: 5rem;
     width: 27.9rem;
@@ -30,6 +27,8 @@
 }
 .navigation__link__icon {
   display: block;
+  padding:20px;
+  color: color-bright-grey;
 }
 .navigation__list {
 }

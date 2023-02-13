@@ -8,8 +8,8 @@
 html{
    @extend %cover;
   
-  background:$color-contessa;
-  color: $color-white;
+  background:#FEF9F3;
+  color: $color-bright-grey;
   font-size: calc(100vw / 1920 * 10);
   /*line-height: 1;*/
  /* ]overflow: hidden;
