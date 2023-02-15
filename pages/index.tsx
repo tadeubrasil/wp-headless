@@ -128,7 +128,7 @@ function HomePage(page) {
       GSAP.to(document.querySelector('.loader'), { autoAlpha: 0 });
     
       GSAP.utils.toArray('section').forEach((section, index) => {
-        const w = section.querySelector('.wrapper');
+        const w = section.querySelector('.wrapper') as HTMLInputElement;
         const [x, xEnd] = index % 2 ? ['100%', (w.scrollWidth - w.offsetWidth) * -1] : [w.scrollWidth * -1, 0];
         GSAP.fromTo(w, { x }, {
           x: xEnd,
@@ -140,8 +140,6 @@ function HomePage(page) {
     };
 
     imagesLoaded(images).on('always', showDemo);
-
-
 
 
   }, []);
