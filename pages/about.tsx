@@ -94,7 +94,7 @@ function About(page) {
 }
 export default About;
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const page = await getPageByAbout();
   return { props: page };
 }

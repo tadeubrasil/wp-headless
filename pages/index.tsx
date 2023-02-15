@@ -369,7 +369,7 @@ function HomePage(page) {
 
 export default HomePage;
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const page = await getPageByHome();
   return { props: page };
 }
