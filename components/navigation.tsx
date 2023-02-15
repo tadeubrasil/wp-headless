@@ -3,7 +3,7 @@ import Link from 'next/link'
 export default function Navigation() {
   return (
     <nav className='navigation'>
-      <Link href="/" className="navigation__link">
+      <Link href="./" className="navigation__link">
         <svg  className='navigation__link__icon'xmlns="http://www.w3.org/2000/svg">
 <path d="M19.0607 56.842C17.185 54.0266 15.685 50.9283 14.635 47.6232L19.2704 46.0913C20.2839 50.0075 21.894 53.6355 23.9813 56.8399L13.4092 66.2546L19.0606 58.1514C19.1849 57.9648 19.2575 57.7397 19.2575 57.4974C19.2575 57.2548 19.1847 57.0294 19.0601 56.8427L19.0607 56.842Z" />
 <path d="M23.6434 10.3115L26.1798 12.8958C23.0628 16.6993 20.693 21.3008 19.3361 26.3986L8.08496 22.4993L14.847 23.1201C14.8564 23.1205 14.8657 23.1207 14.8751 23.1207C15.1581 23.1207 15.4006 22.9428 15.5008 22.6909H15.5009C17.3638 17.9981 20.1561 13.7917 23.6434 10.3115Z" />
@@ -30,7 +30,7 @@ export default function Navigation() {
       </Link>
       <ul className="navigation__list">
         <li className="navigation__list__item">
-          <Link href="/about" className="navigation__list__link">
+          <Link href="about" className="navigation__list__link">
           About
           </Link>
         </li>
