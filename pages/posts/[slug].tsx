@@ -79,7 +79,7 @@ export const getStaticProps: GetStaticProps = async ({
   }
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+/*export const getStaticPaths: GetStaticPaths = async () => {
   const allPosts = await getAllPostsWithSlug()
 
   return {
@@ -87,3 +87,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: true,
   }
 }
+*/
