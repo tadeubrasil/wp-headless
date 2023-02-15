@@ -78,8 +78,7 @@ export const getStaticProps: GetStaticProps = async ({
     revalidate: 10,
   }
 }
-
-/*export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const allPosts = await getAllPostsWithSlug()
 
   return {
@@ -87,4 +86,3 @@ export const getStaticProps: GetStaticProps = async ({
     fallback: true,
   }
 }
-*/
