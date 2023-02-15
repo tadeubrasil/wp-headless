@@ -6,15 +6,13 @@
 }
 
 html{
-   @extend %cover;
-  
+  @extend %cover;
   background:#FEF9F3;
   color: $color-bright-grey;
-  font-size: calc(100vw / 1920 * 10);
-  /*line-height: 1;*/
- /* ]overflow: hidden;
-  position: fixed;
-*/
+  font-size: calc(100vw / 1920 * 14);
+  line-height: 1;
+  /* overflow: hidden;
+ position: fixed;*/
 
   @include media('<phone'){
     font-size: calc(100vw / 750 * 10);
@@ -22,8 +20,8 @@ html{
 }
 
 body {
-/*   @extend %cover;
- */  @extend %description-16;
+  @extend %cover;
+  @extend %description-16;
   font-family: $font-suisse-bp;
   /*position: fixed;*/
 }

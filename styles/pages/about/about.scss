@@ -13,11 +13,26 @@
 }
 
 .about__title {
-  @extend %title-100;
+  @extend %title-60;
 
-  max-width: 124rem;
+  max-width: 120rem;
   margin: auto;
   text-align: center;
+  line-height: 1.2;
+  padding-bottom: 3rem;
+
+  @include media('<phone') {
+    max-width: 67.7rem;
+  }
+}
+
+.about__secondTitle {
+  @extend %title-30;
+
+  max-width: 80rem;
+  margin: auto;
+  text-align: center;
+  line-height: 1.2;
 
   @include media('<phone') {
     max-width: 67.7rem;

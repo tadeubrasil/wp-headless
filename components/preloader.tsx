@@ -1,16 +1,24 @@
 import { useEffect, useRef } from "react";
 import GSAP from "gsap";
 import { SplitText } from "gsap/SplitText";
+import imagesLoaded from "imagesloaded";
 
 export default function Preloader() {
   let el = useRef();
   useEffect(() => {
     GSAP.registerPlugin(SplitText);
 
-    var animation = GSAP.timeline({ delay: 1 }),
-    
+    var animation = GSAP.timeline({ delay: 1 })
+    var preloader = document.querySelector(".preloader"),
     mySplitText = new SplitText("#quote", { type: "lines" }),
     chars = mySplitText.lines; //an array of all the divs that wrap each character
+
+    const images = GSAP.utils.toArray('img');
+    const loader = document.querySelector('.preloader__number__text');
+    const updateProgress = (instance) =>
+    loader.textContent = `${Math.round(instance.progressedCount * 100 / images.length)}%`;
+    
+    console.log(loader.textContent);
 
     animation.to(chars,{
       duration: 1.5,
@@ -23,20 +31,23 @@ export default function Preloader() {
       },
     })
 
-    animation.to(".preloader",{
+    animation.to(preloader,{
       delay: 0,
       duration: 1.5,
       y: "100%",
-      ease: "expo.out"
+      ease: "expo.out",
+      onComplete: function(){  animation.set(preloader, { className: "preloader__none"}) },
     });
-    animation.to(".preloader",{
+    animation.to(preloader,{
         zIndex: -1
     });
+
+    imagesLoaded(images).on('progress', updateProgress)
 
   }, []);
 
   return (
-    <div className="preloader active">
+    <div className="preloader">
       <div id="quote" className="preloader__text">
         "Time is money. We can save you both. Bringing you results through the
         power of digital."

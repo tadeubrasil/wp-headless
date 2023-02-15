@@ -265,7 +265,32 @@ export async function getPageByAbout() {
           type
           imageContent {
             uri
+            sourceUrl(size: MEDIUM)
+            slug
           }
+        }
+      }
+    }
+  }
+  `);
+  return data?.page;
+}
+
+export async function getPageByHome() {
+  const data = await fetchAPI(`
+  {
+    page(id: "home", idType: URI) {
+      title
+      home {
+        content {
+          label
+          title
+          image {
+            sourceUrl
+          }
+        }
+        galery {
+          sourceUrl
         }
       }
     }

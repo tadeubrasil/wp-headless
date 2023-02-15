@@ -1,35 +1,35 @@
-.navigation {
-  @extend %cover;
+.navigation{
+  display: grid;
+  grid-area: 1 / 1 / 2 / 5;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  justify-content: center;
   color: color-bright-grey;
-  position: fixed;
   pointer-events: none;
 }
-
-.navigation__link {
-  font-size: 20px;
-  left: 4rem;
-  top: 4rem;
-  width: 12.8rem;
+.navigation__link{
+  width: 100%;
+  display: grid;
+  align-content: space-around;
+  padding: 20px;
   pointer-events: auto;
   height: 2rem;
   transition: opacity 0.4s ease;
-
+  
   &:hover {
     opacity: 0.5;
   }
 
-  @include media("<phone") {
-    left: 5rem;
-    top: 5rem;
-    width: 27.9rem;
-    height: 4.3rem;
-  }
 }
-.navigation__link__icon {
-  display: block;
-  padding:20px;
-  color: color-bright-grey;
+.navigation__list{
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  justify-content: end;
 }
+
 .navigation__list {
 }
 .navigation__list__item {
@@ -37,6 +37,7 @@
   right: 4rem;
   top: 4rem;
   pointer-events: auto;
+    justify-content: end;
 }
 .navigation__list__link {
   @extend %link--hidden;
