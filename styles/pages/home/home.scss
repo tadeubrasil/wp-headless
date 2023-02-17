@@ -78,6 +78,7 @@ figure.home__content__media{
   height: 400px;
   width: 30%;
   opacity: 0;
+  will-change: transform;
   @include media('<phone') {
     height: 120px;
   }
