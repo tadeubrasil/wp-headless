@@ -64,3 +64,20 @@
   overflow: hidden;
   z-index: 100;
 }
+
+
+/* about us */
+.preloader__about_out{
+  @extend %center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f20;
+  color: $color-white;
+  text-align: center;
+  overflow: hidden;
+  z-index: 100;
+  opacity: 0;
+}

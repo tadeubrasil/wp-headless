@@ -1,6 +1,35 @@
+import { useEffect, useRef } from "react";
 import Link from 'next/link'
+import GSAP from "gsap";
 
 export default function Navigation() {
+  let el = useRef();
+
+  useEffect(() => {
+
+  var timelineLink = GSAP.timeline();
+
+  var preloader__about = document.querySelector(".preloader__about")
+  var preloader__about_out = document.querySelector(".preloader__about_out")
+  const button = document.querySelector(".navigation__list__link");
+
+  timelineLink.to(preloader__about,{
+    delay: 0,
+    duration: 2,
+    y: "-100%",
+    ease: "expo.out",
+    onComplete: function(){  timelineLink.set(preloader__about, { className: "preloader__none"}) }
+  })
+  .to(preloader__about,{
+      zIndex: -1
+  });
+
+  button.addEventListener("click", () => {
+    console.log("CLicked");
+    timelineLink.play()
+  })
+  })
+
   return (
     <nav className='navigation'>
       <Link href="./" className="navigation__link">

@@ -140,6 +140,7 @@ function HomePage(page) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navigation></Navigation>
+      <div className="preloader__about"></div>
       <div className="main__content">
         <div className="container">
           <h2 className="about__title headline__01">

@@ -26,12 +26,12 @@ function About(page) {
     var imagesContent = document.querySelectorAll(
       ".imagem__01",
       );
-      var aboutTitles = document.querySelectorAll(".text__animation");
-      var imagesContent2 = document.querySelector(
+    var aboutTitles = document.querySelectorAll(".text__animation");
+    var imagesContent2 = document.querySelector(
         ".imagem__secund",
       );
 
-      tl.from(chars, {
+    tl.from(chars, {
       duration: 0.8,
       opacity: 0,
       scale: 0,
@@ -87,6 +87,7 @@ function About(page) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navigation></Navigation>
+      <div className="preloader__about"></div>
       <div className="main__content">
         <div className="container">
           <h2 className="about__title" data-animation="title">
