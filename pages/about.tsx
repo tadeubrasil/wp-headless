@@ -17,14 +17,20 @@ function About(page) {
     GSAP.registerPlugin(SplitText);
     GSAP.registerPlugin(ScrollTrigger);
 
-    var animation = GSAP.timeline({ delay: 1 });
     var tl = GSAP.timeline({ delay: 1 }),
     mySplitText = new SplitText(".about__title, .about__secondTitle", { type: "words,chars" }),
     chars = mySplitText.chars; //an array of all the divs that wrap each character
   
     GSAP.set(".about__title", { perspective: 400 });
-    
-    tl.from(chars, {
+    var imagesContent = document.querySelectorAll(
+      ".imagem__01",
+      );
+      var aboutTitles = document.querySelectorAll(".text__animation");
+      var imagesContent2 = document.querySelector(
+        ".imagem__secund",
+      );
+
+      tl.from(chars, {
       duration: 0.8,
       opacity: 0,
       scale: 0,
@@ -33,20 +39,44 @@ function About(page) {
       transformOrigin: "0% 50% -50",
       ease: "back",
       stagger: 0.01
-    });
-
-    var imagesContent = document.querySelectorAll(
-      ".imagem__01",
-    );
-
-
-    imagesContent.forEach(function (image) {
-      animation.from(image, {
+    })
+    .from(imagesContent, {
+      opacity: 0,
+      duration: 0.8,
+      ease: "back",
+    })
+    .from(aboutTitles, {
         delay: 1,
+        duration: 2,
+        opacity:0, 
+        y:100, 
+        ease: 'expo.out',
+        stagger:{
+          from:"center", //try "center" and "edges"
+          each:0.05
+        },
+        scrollTrigger: {
+          trigger: aboutTitles,
+          start: "-100px center",  // [trigger] [scroller] positions
+          end: "bottom center", // [trigger] [scroller] positions
+          // or relative amount: "+=500"
+          scrub: 1, // or time (in seconds) to catch up
+          markers: false, // only during development!
+        },
+      })
+      .from(imagesContent2, {
         opacity: 0,
-        duration: 0.9,
+        duration: 1,
+        ease: "back",
+        scrollTrigger: {
+          trigger: imagesContent2,
+          start: "-40px center",  // [trigger] [scroller] positions
+          end: "bottom center", // [trigger] [scroller] positions
+          // or relative amount: "+=500"
+          scrub: 1, // or time (in seconds) to catch up
+          markers: false, // only during development!
+        },
       });
-    });
 
   }, []);
   return (
@@ -75,12 +105,12 @@ function About(page) {
           </div>
         </div>
         <div className="container">
-          <h4 className="about__secondTitle" data-animation="title">
-          {page.about.content[1].label}
+          <h4 className="about__secondTitle text__animation" >
+            {page.about.content[1].label}
           </h4>
-          <div className="home__content__media imagem__01">
+          <div className="home__content__media imagem__secund">
             <Image 
-              unoptimized 
+              unoptimized
               alt=""
               src={page.about.content[1].imageContent.sourceUrl}
               layout="fill" 

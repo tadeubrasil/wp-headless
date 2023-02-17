@@ -18,10 +18,12 @@ export default function Preloader() {
     const updateProgress = (instance) =>
     loader.textContent = `${Math.round(instance.progressedCount * 100 / images.length)}%`;
     
-    console.log(loader.textContent);
-
-    animation.to(chars,{
-      duration: 1.5,
+    animation.from(loader,{
+      opacity:0
+    })
+    
+    animation.from(chars,{
+      duration: 2,
       opacity:0, 
       y:50, 
       ease: 'expo.out',
@@ -31,6 +33,17 @@ export default function Preloader() {
       },
     })
 
+    animation.to(chars,{
+      duration: 2,
+      opacity:0, 
+      y:50, 
+      ease: 'expo.out',
+      stagger:{
+        from:"center", //try "center" and "edges"
+        each:0.06
+      },
+    })
+0
     animation.to(preloader,{
       delay: 0,
       duration: 1.5,
@@ -43,7 +56,6 @@ export default function Preloader() {
     });
 
     imagesLoaded(images).on('progress', updateProgress)
-
   }, []);
 
   return (

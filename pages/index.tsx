@@ -13,23 +13,24 @@ import imagesLoaded from "imagesloaded";
 import { getPageByHome } from "../lib/api";
 
 function HomePage(page) {
-  console.log(page);
   let el = useRef();
 
   useEffect(() => {
     GSAP.registerPlugin(SplitText);
     GSAP.registerPlugin(ScrollTrigger);
 
-    var animation = GSAP.timeline({ delay: 1 });
+    var animation = GSAP.timeline({ delay: 5.8 }),
 
-    var tl = GSAP.timeline({ delay: 2.7 }),
+    //var tl = GSAP.timeline({ delay: 5.8 }),
     mySplitText = new SplitText(".headline__01, .secondHeadline_01", { type: "words,chars" }),
     chars = mySplitText.chars; //an array of all the divs that wrap each character
   
-    GSAP.set(".headline__01", { perspective: 400 });
-    
-    tl.from(chars, {
-      duration: 0.8,
+    var imagesContent = document.querySelector(
+      ".imagem__01",
+    );
+
+    animation.from(chars, {
+      duration: 2,
       opacity: 0,
       scale: 0,
       y: 80,
@@ -37,108 +38,93 @@ function HomePage(page) {
       transformOrigin: "0% 50% -50",
       ease: "back",
       stagger: 0.01
+    })
+    .from(imagesContent, {
+      opacity: 0,
+      duration: 1,
+      ease: "back",
     });
-
-    var imagesContent = document.querySelectorAll(
-      ".imagem__01",
-    );
-
-
-    imagesContent.forEach(function (image) {
-      animation.from(image, {
-        delay: 2.7,
-        opacity: 0,
-        duration: 4
-      });
-    });
-
 
     var aboutTitles = document.querySelectorAll(".text__animation");
+
     // Criar a animação para cada título
     aboutTitles.forEach(function (title) {
       animation.from(title, {
-        opacity: 0,
-        duration: 1,
+        duration: 2,
+        opacity:0, 
+        y:50, 
+        ease: 'expo.out',
+        stagger:{
+          from:"center", //try "center" and "edges"
+          each:0.05
+        },
         scrollTrigger: {
           trigger: title,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
+          start: "-300px center",  // [trigger] [scroller] positions
+          end: "bottom center", // [trigger] [scroller] positions
+          // or relative amount: "+=500"
+          scrub: 1, // or time (in seconds) to catch up
+          markers: false, // only during development!
         },
       });
     });
 
-    var imagesSecund = document.querySelectorAll(
+    var imagesContent2 = document.querySelector(
       ".imagem__secund",
     );
 
-    imagesSecund.forEach(function (image) {
-      animation.from(image, {
-        opacity: 0,
-        x: -100,
-        duration: 1,
-        scrollTrigger: {
-          trigger: imagesSecund,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-        },
-      });
+    animation.from(imagesContent2, {
+      opacity: 0,
+      duration: 1,
+      ease: "back",
+      scrollTrigger: {
+        trigger: imagesContent2,
+        start: "-20px center",  // [trigger] [scroller] positions
+        end: "bottom center", // [trigger] [scroller] positions
+        // or relative amount: "+=500"
+        scrub: 1, // or time (in seconds) to catch up
+        markers: false, // only during development!
+      },
     });
 
-    /* RIGHT */
-    var aboutTitles = document.querySelectorAll(".text__animation_right");
-    // Criar a animação para cada título
-    aboutTitles.forEach(function (title) {
-      animation.from(title, {
-        opacity: 0,
-        duration: 1,
-        scrollTrigger: {
-          trigger: title,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-        },
-      });
-    });
+// usage:
+batch(".card", {
+  interval: 0.1, // time window (in seconds) for batching to occur. The first callback that occurs (of its type) will start the timer, and when it elapses, any other similar callbacks for other targets will be batched into an array and fed to the callback. Default is 0.1
+  batchMax: 3,   // maximum batch size (targets)
+  onEnter: batch => GSAP.to(batch, {autoAlpha: 1, stagger: 0.15, overwrite: true}),
+  onLeave: batch => GSAP.set(batch, {autoAlpha: 0, overwrite: true}),
+  onEnterBack: batch => GSAP.to(batch, {autoAlpha: 1, stagger: 0.15, overwrite: true}),
+  //onLeaveBack: batch => GSAP.set(batch, {autoAlpha: 0, overwrite: true})
+  // you can also define things like start, end, etc.
+});
 
-    var imagesSecund_Right = document.querySelectorAll(
-      ".imagem__secund_right",
-    );
+// the magical helper function (no longer necessary in GSAP 3.3.1 because it was added as ScrollTrigger.batch())...
+function batch(targets, vars) {
+  let varsCopy = {},
+      interval = vars.interval || 0.1,
+      proxyCallback = (type, callback) => {
+        let batch = [],
+            delay = GSAP.delayedCall(interval, () => {callback(batch); batch.length = 0;}).pause();
+        return self => {
+          batch.length || delay.restart(true);
+          batch.push(self.trigger);
+          vars.batchMax && vars.batchMax <= batch.length && delay.progress(1);
+        };
+      },
+      p;
+  for (p in vars) {
+    varsCopy[p] = (~p.indexOf("Enter") || ~p.indexOf("Leave")) ? proxyCallback(p, vars[p]) : vars[p];
+  }
+  GSAP.utils.toArray(targets).forEach(target => {
+    let config = {};
+    for (p in varsCopy) {
+      config[p] = varsCopy[p];
+    }
+    config.trigger = target;
+    ScrollTrigger.create(config);
+  });
+}
 
-    imagesSecund_Right.forEach(function (image) {
-      animation.from(image, {
-        opacity: 0,
-        x: -100,
-        duration: 1,
-        scrollTrigger: {
-          trigger: imagesSecund,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-        },
-      });
-    });
-
-    const images = GSAP.utils.toArray('img');
-    
-    const showDemo = () => {
-      document.body.style.overflow = 'auto';
-      document.scrollingElement.scrollTo(0, 0);
-      GSAP.to(document.querySelector('.loader'), { autoAlpha: 0 });
-    
-      GSAP.utils.toArray('section').forEach((section, index) => {
-        const w = section.querySelector('.wrapper');
-        const [x, xEnd] = index % 2 ? ['100%', (w.scrollWidth - w.offsetWidth) * -1] : [w.scrollWidth * -1, 0];
-        GSAP.fromTo(w, { x }, {
-          x: xEnd,
-          scrollTrigger: {
-            trigger: section,
-            scrub: 0.5 } });
-      });
-    };
-
-    imagesLoaded(images).on('always', showDemo);
 
 
   }, []);
@@ -169,10 +155,8 @@ function HomePage(page) {
           <h2 className="about__title text__animation" >
             {page.home.content[1].title}
           </h2>
-          <div className="demo-wrapper">
-          <section className='demo-gallery'>
-            <ul className='wrapper row1'>
-              <li>
+            <div className="d-flex flex-wrap pt-5 pb-3">
+              <div className="card mr-3 mb-3">
               <Image 
                 unoptimized
                 alt=""
@@ -181,177 +165,123 @@ function HomePage(page) {
                 height={400}
                 className={'image'} 
               />
-              </li>
-              <li>
-                <Image 
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[1].sourceUrl} 
-                  width={800}
-                  height={400}
-                  className={'image'} 
-                />
-              </li>
-              <li>
-                <Image 
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[2].sourceUrl} 
-                  width={800}
-                  height={400}
-                  className={'image'} 
-                />
-              </li>
-              <li>
-                <Image 
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[3].sourceUrl} 
-                  width={800}
-                  height={400}
-                  className={'image'} 
-                />
-              </li>
-            </ul>
-          </section>
-          <section className='demo-gallery'>
-            <ul className='wrapper row2'>
-              <li>
-                <Image 
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[4].sourceUrl} 
-                  width={800}
-                  height={400}
-                  className={'image'} 
-                />
-              </li>
-              <li>
-                <Image 
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[5].sourceUrl} 
-                  width={800}
-                  height={400}
-                  className={'image'} 
-                />
-              </li>
-              <li>
-                <Image 
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[6].sourceUrl} 
-                  width={800}
-                  height={400}
-                  className={'image'} 
-                />
-              </li>
-              <li>
-                <Image 
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[7].sourceUrl} 
-                  width={800}
-                  height={400}
-                  className={'image'} 
-                />
-              </li>
-            </ul>
-          </section>
-          <section className='demo-gallery'>
-            <ul className='wrapper'>
-              <li>
+              </div>
+              <div className="card mr-3 mb-3">
               <Image 
                 unoptimized
                 alt=""
-                src={page.home.galery[9].sourceUrl} 
+                src={page.home.galery[1].sourceUrl} 
                 width={800}
                 height={400}
                 className={'image'} 
               />
-              </li>
-              <li>
-                <Image 
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[10].sourceUrl} 
-                  width={800}
-                  height={400}
-                  className={'image'} 
-                />
-              </li>
-              <li>
-                <Image 
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[11].sourceUrl} 
-                  width={800}
-                  height={400}
-                  className={'image'} 
-                />
-              </li>
-              <li>
-                <Image 
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[12].sourceUrl} 
-                  width={800}
-                  height={400}
-                  className={'image'} 
-                />
-              </li>
-            </ul>
-          </section>
-          <section className='demo-gallery mb-2rem'>
-            <ul className='wrapper'>
-              <li>
-                <Image 
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[13].sourceUrl} 
-                  width={800}
-                  height={400}
-                  className={'image'} 
-                />
-              </li>
-              <li>
-                <Image 
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[14].sourceUrl} 
-                  width={800}
-                  height={400}
-                  className={'image'} 
-                />
-              </li>
-              <li>
-                <Image 
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[15].sourceUrl} 
-                  width={800}
-                  height={400}
-                  className={'image'} 
-                />
-              </li>
-              <li>
-                <Image 
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[8].sourceUrl} 
-                  width={800}
-                  height={400}
-                  className={'image'} 
-                />
-              </li>
-            </ul>
-          </section>
-          </div>
-          <p className="about__secondTitle text__animation">{page.home.content[1].label}</p>
-          <h2 className="about__title text__animation_right" >
+              </div>
+              <div className="card mr-3 mb-3">
+              <Image 
+                unoptimized
+                alt=""
+                src={page.home.galery[2].sourceUrl} 
+                width={800}
+                height={400}
+                className={'image'} 
+              />
+              </div>
+              <div className="card mr-3 mb-3">
+              <Image 
+                unoptimized
+                alt=""
+                src={page.home.galery[3].sourceUrl} 
+                width={800}
+                height={400}
+                className={'image'} 
+              />
+              </div>
+              <div className="card mr-3 mb-3">
+              <Image 
+                unoptimized
+                alt=""
+                src={page.home.galery[4].sourceUrl} 
+                width={800}
+                height={400}
+                className={'image'} 
+              />
+              </div>
+              <div className="card mr-3 mb-3">
+              <Image 
+                unoptimized
+                alt=""
+                src={page.home.galery[5].sourceUrl} 
+                width={800}
+                height={400}
+                className={'image'} 
+              />
+              </div>
+              <div className="card mr-3 mb-3">
+              <Image 
+                unoptimized
+                alt=""
+                src={page.home.galery[6].sourceUrl} 
+                width={800}
+                height={400}
+                className={'image'} 
+              />
+              </div>
+              <div className="card mr-3 mb-3">
+              <Image 
+                unoptimized
+                alt=""
+                src={page.home.galery[7].sourceUrl} 
+                width={800}
+                height={400}
+                className={'image'} 
+              />
+              </div>
+              <div className="card mr-3 mb-3">
+              <Image 
+                unoptimized
+                alt=""
+                src={page.home.galery[8].sourceUrl} 
+                width={800}
+                height={400}
+                className={'image'} 
+              />
+              </div>
+              <div className="card mr-3 mb-3">
+              <Image 
+                unoptimized
+                alt=""
+                src={page.home.galery[10].sourceUrl} 
+                width={800}
+                height={400}
+                className={'image'} 
+              />
+              </div>
+              <div className="card mr-3 mb-3">
+              <Image 
+                unoptimized
+                alt=""
+                src={page.home.galery[12].sourceUrl} 
+                width={800}
+                height={400}
+                className={'image'} 
+              />
+              </div>
+              <div className="card mr-3 mb-3">
+              <Image 
+                unoptimized
+                alt=""
+                src={page.home.galery[13].sourceUrl} 
+                width={800}
+                height={400}
+                className={'image'} 
+              />
+              </div>
+            </div>
+          <p className="about__secondTitle text__animation">{page.home.content[2].label}</p>
+          <h2 className="about__title text__animation" >
             {page.home.content[2].title}
           </h2>
-          <div className="home__content__media imagem__secund_right">
+          <div className="home__content__media imagem__secund">
             <Image 
               unoptimized
               alt=""
