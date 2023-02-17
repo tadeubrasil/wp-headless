@@ -21,8 +21,7 @@ export default function Preloader() {
     animation.from(loader,{
       opacity:0
     })
-    
-    animation.from(chars,{
+    .from(chars,{
       duration: 2,
       opacity:0, 
       y:50, 
@@ -32,8 +31,10 @@ export default function Preloader() {
         each:0.05
       },
     })
-
-    animation.to(chars,{
+    .to(loader,{
+      y:50, 
+    })
+    .to(chars,{
       duration: 2,
       opacity:0, 
       y:50, 
@@ -43,15 +44,15 @@ export default function Preloader() {
         each:0.06
       },
     })
-0
-    animation.to(preloader,{
+
+    .to(preloader,{
       delay: 0,
       duration: 1.5,
       y: "100%",
       ease: "expo.out",
       onComplete: function(){  animation.set(preloader, { className: "preloader__none"}) },
-    });
-    animation.to(preloader,{
+    })
+    .to(preloader,{
         zIndex: -1
     });
 

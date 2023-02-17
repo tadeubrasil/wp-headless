@@ -9,7 +9,6 @@ import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import imagesLoaded from "imagesloaded";
 
-
 import { getPageByHome } from "../lib/api";
 
 function HomePage(page) {
@@ -20,30 +19,30 @@ function HomePage(page) {
     GSAP.registerPlugin(ScrollTrigger);
 
     var animation = GSAP.timeline({ delay: 5.8 }),
+      //var tl = GSAP.timeline({ delay: 5.8 }),
+      mySplitText = new SplitText(".headline__01, .secondHeadline_01", {
+        type: "words,chars",
+      }),
+      chars = mySplitText.chars; //an array of all the divs that wrap each character
 
-    //var tl = GSAP.timeline({ delay: 5.8 }),
-    mySplitText = new SplitText(".headline__01, .secondHeadline_01", { type: "words,chars" }),
-    chars = mySplitText.chars; //an array of all the divs that wrap each character
-  
-    var imagesContent = document.querySelector(
-      ".imagem__01",
-    );
+    var imagesContent = document.querySelector(".imagem__01");
 
-    animation.from(chars, {
-      duration: 2,
-      opacity: 0,
-      scale: 0,
-      y: 80,
-      rotationX: 180,
-      transformOrigin: "0% 50% -50",
-      ease: "back",
-      stagger: 0.01
-    })
-    .from(imagesContent, {
-      opacity: 0,
-      duration: 1,
-      ease: "back",
-    });
+    animation
+      .from(chars, {
+        duration: 2,
+        opacity: 0,
+        scale: 0,
+        y: 80,
+        rotationX: 180,
+        transformOrigin: "0% 50% -50",
+        ease: "back",
+        stagger: 0.01,
+      })
+      .from(imagesContent, {
+        opacity: 0,
+        duration: 1,
+        ease: "back",
+      });
 
     var aboutTitles = document.querySelectorAll(".text__animation");
 
@@ -51,16 +50,16 @@ function HomePage(page) {
     aboutTitles.forEach(function (title) {
       animation.from(title, {
         duration: 2,
-        opacity:0, 
-        y:50, 
-        ease: 'expo.out',
-        stagger:{
-          from:"center", //try "center" and "edges"
-          each:0.05
+        opacity: 0,
+        y: 50,
+        ease: "expo.out",
+        stagger: {
+          from: "center", //try "center" and "edges"
+          each: 0.05,
         },
         scrollTrigger: {
           trigger: title,
-          start: "-300px center",  // [trigger] [scroller] positions
+          start: "-300px center", // [trigger] [scroller] positions
           end: "bottom center", // [trigger] [scroller] positions
           // or relative amount: "+=500"
           scrub: 1, // or time (in seconds) to catch up
@@ -69,9 +68,7 @@ function HomePage(page) {
       });
     });
 
-    var imagesContent2 = document.querySelector(
-      ".imagem__secund",
-    );
+    var imagesContent2 = document.querySelector(".imagem__secund");
 
     animation.from(imagesContent2, {
       opacity: 0,
@@ -79,7 +76,7 @@ function HomePage(page) {
       ease: "back",
       scrollTrigger: {
         trigger: imagesContent2,
-        start: "-20px center",  // [trigger] [scroller] positions
+        start: "-20px center", // [trigger] [scroller] positions
         end: "bottom center", // [trigger] [scroller] positions
         // or relative amount: "+=500"
         scrub: 1, // or time (in seconds) to catch up
@@ -87,16 +84,52 @@ function HomePage(page) {
       },
     });
 
-    ScrollTrigger.batch(".card", {
-      interval: 0.1, // time window (in seconds) for batching to occur. 
-      batchMax: 3,   // maximum batch size (targets)
-      onEnter: batch => GSAP.to(batch, {opacity: 0, stagger: 0.15, overwrite: true}),
-      onLeave: batch => GSAP.set(batch, {opacity: 1, overwrite: true}),
-      onEnterBack: batch => GSAP.to(batch, {opacity: 1, stagger: 0.15, overwrite: true}),
-      onLeaveBack: batch => GSAP.set(batch, {opacity: 0, overwrite: true})
-      // you can also define things like start, end, etc.
+    var rowCards = document.querySelector(".rowCard");
+    var rowCards2 = document.querySelector(".rowCard2");
+    var rowCards3 = document.querySelector(".rowCard3");
+
+    animation.from(rowCards, {
+      opacity: 0,
+      duration: 1,
+      ease: "back",        stagger: {
+        from: "center", //try "center" and "edges"
+        each: 0.05,
+      },
+      scrollTrigger: {
+        trigger: rowCards,
+        start: "-20px center", // [trigger] [scroller] positions
+        end: "bottom center", // [trigger] [scroller] positions
+        // or relative amount: "+=500"
+        scrub: 1, // or time (in seconds) to catch up
+        markers: false, // only during development!
+      },
+    })
+    .from(rowCards2, {
+      opacity: 0,
+      duration: 1,
+      ease: "back",
+      scrollTrigger: {
+        trigger: rowCards2,
+        start: "-20px center", // [trigger] [scroller] positions
+        end: "bottom center", // [trigger] [scroller] positions
+        // or relative amount: "+=500"
+        scrub: 1, // or time (in seconds) to catch up
+        markers: false, // only during development!
+      },
+    })
+    .from(rowCards3, {
+      opacity: 0,
+      duration: 1,
+      ease: "back",
+      scrollTrigger: {
+        trigger: rowCards3,
+        start: "-20px center", // [trigger] [scroller] positions
+        end: "bottom center", // [trigger] [scroller] positions
+        // or relative amount: "+=500"
+        scrub: 1, // or time (in seconds) to catch up
+        markers: false, // only during development!
+      },
     });
-    
 
   }, []);
   return (
@@ -109,156 +142,142 @@ function HomePage(page) {
       <Navigation></Navigation>
       <div className="main__content">
         <div className="container">
-          <h2 className="about__title headline__01" >
+          <h2 className="about__title headline__01">
             {page.home.content[0].title}
           </h2>
-          <p className="about__secondTitle secondHeadline_01">{page.home.content[0].label} </p>
+          <p className="about__secondTitle secondHeadline_01">
+            {page.home.content[0].label}{" "}
+          </p>
           <div className="home__content__media imagem__01">
-            <Image 
-              unoptimized 
+            <Image
+              unoptimized
               alt=""
-              src={page.home.content[0].image.sourceUrl} 
-              layout="fill" 
-              className={'image'} 
+              src={page.home.content[0].image.sourceUrl}
+              layout="fill"
+              className={"image"}
             />
           </div>
-          <p className="about__secondTitle text__animation">{page.home.content[1].label}</p>
-          <h2 className="about__title text__animation" >
+          <p className="about__secondTitle text__animation">
+            {page.home.content[1].label}
+          </p>
+          <h2 className="about__title text__animation">
             {page.home.content[1].title}
           </h2>
-            <div className="d-flex flex-wrap pt-5 pb-3">
+          <div className="rowCard">
+            <div className="d-flex flex-wrap pb-2">
               <div className="card mr-3 mb-3">
-              <Image 
-                unoptimized
-                alt=""
-                src={page.home.galery[0].sourceUrl} 
-                width={800}
-                height={400}
-                className={'image'} 
-              />
+                <Image
+                  unoptimized
+                  alt=""
+                  src={page.home.galery[0].sourceUrl}
+                  width={800}
+                  height={400}
+                  className={"image"}
+                />
               </div>
               <div className="card mr-3 mb-3">
-              <Image 
-                unoptimized
-                alt=""
-                src={page.home.galery[1].sourceUrl} 
-                width={800}
-                height={400}
-                className={'image'} 
-              />
+                <Image
+                  unoptimized
+                  alt=""
+                  src={page.home.galery[1].sourceUrl}
+                  width={800}
+                  height={400}
+                  className={"image"}
+                />
               </div>
               <div className="card mr-3 mb-3">
-              <Image 
-                unoptimized
-                alt=""
-                src={page.home.galery[2].sourceUrl} 
-                width={800}
-                height={400}
-                className={'image'} 
-              />
-              </div>
-              <div className="card mr-3 mb-3">
-              <Image 
-                unoptimized
-                alt=""
-                src={page.home.galery[3].sourceUrl} 
-                width={800}
-                height={400}
-                className={'image'} 
-              />
-              </div>
-              <div className="card mr-3 mb-3">
-              <Image 
-                unoptimized
-                alt=""
-                src={page.home.galery[4].sourceUrl} 
-                width={800}
-                height={400}
-                className={'image'} 
-              />
-              </div>
-              <div className="card mr-3 mb-3">
-              <Image 
-                unoptimized
-                alt=""
-                src={page.home.galery[5].sourceUrl} 
-                width={800}
-                height={400}
-                className={'image'} 
-              />
-              </div>
-              <div className="card mr-3 mb-3">
-              <Image 
-                unoptimized
-                alt=""
-                src={page.home.galery[6].sourceUrl} 
-                width={800}
-                height={400}
-                className={'image'} 
-              />
-              </div>
-              <div className="card mr-3 mb-3">
-              <Image 
-                unoptimized
-                alt=""
-                src={page.home.galery[7].sourceUrl} 
-                width={800}
-                height={400}
-                className={'image'} 
-              />
-              </div>
-              <div className="card mr-3 mb-3">
-              <Image 
-                unoptimized
-                alt=""
-                src={page.home.galery[8].sourceUrl} 
-                width={800}
-                height={400}
-                className={'image'} 
-              />
-              </div>
-              <div className="card mr-3 mb-3">
-              <Image 
-                unoptimized
-                alt=""
-                src={page.home.galery[10].sourceUrl} 
-                width={800}
-                height={400}
-                className={'image'} 
-              />
-              </div>
-              <div className="card mr-3 mb-3">
-              <Image 
-                unoptimized
-                alt=""
-                src={page.home.galery[12].sourceUrl} 
-                width={800}
-                height={400}
-                className={'image'} 
-              />
-              </div>
-              <div className="card mr-3 mb-3">
-              <Image 
-                unoptimized
-                alt=""
-                src={page.home.galery[13].sourceUrl} 
-                width={800}
-                height={400}
-                className={'image'} 
-              />
+                <Image
+                  unoptimized
+                  alt=""
+                  src={page.home.galery[2].sourceUrl}
+                  width={800}
+                  height={400}
+                  className={"image"}
+                />
               </div>
             </div>
-          <p className="about__secondTitle text__animation">{page.home.content[2].label}</p>
-          <h2 className="about__title text__animation" >
+          </div>
+          <div className="rowCard2">
+            <div className="d-flex flex-wrap pb-2">
+              <div className="card mr-3 mb-3">
+                <Image
+                  unoptimized
+                  alt=""
+                  src={page.home.galery[4].sourceUrl}
+                  width={800}
+                  height={400}
+                  className={"image"}
+                />
+              </div>
+              <div className="card mr-3 mb-3">
+                <Image
+                  unoptimized
+                  alt=""
+                  src={page.home.galery[5].sourceUrl}
+                  width={800}
+                  height={400}
+                  className={"image"}
+                />
+              </div>
+              <div className="card mr-3 mb-3">
+                <Image
+                  unoptimized
+                  alt=""
+                  src={page.home.galery[6].sourceUrl}
+                  width={800}
+                  height={400}
+                  className={"image"}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="rowCard3 pb-3">
+            <div className="d-flex flex-wrap pb-2">
+              <div className="card mr-3 mb-3">
+                <Image
+                  unoptimized
+                  alt=""
+                  src={page.home.galery[7].sourceUrl}
+                  width={800}
+                  height={400}
+                  className={"image"}
+                />
+              </div>
+              <div className="card mr-3 mb-3">
+                <Image
+                  unoptimized
+                  alt=""
+                  src={page.home.galery[8].sourceUrl}
+                  width={800}
+                  height={400}
+                  className={"image"}
+                />
+              </div>
+              <div className="card mr-3 mb-3">
+                <Image
+                  unoptimized
+                  alt=""
+                  src={page.home.galery[9].sourceUrl}
+                  width={800}
+                  height={400}
+                  className={"image"}
+                />
+              </div>
+            </div>
+          </div>
+          <p className="about__secondTitle text__animation">
+            {page.home.content[2].label}
+          </p>
+          <h2 className="about__title text__animation">
             {page.home.content[2].title}
           </h2>
           <div className="home__content__media imagem__secund">
-            <Image 
+            <Image
               unoptimized
               alt=""
-              src={page.home.content[2].image.sourceUrl} 
-              layout="fill" 
-              className={'image'} 
+              src={page.home.content[2].image.sourceUrl}
+              layout="fill"
+              className={"image"}
             />
           </div>
         </div>

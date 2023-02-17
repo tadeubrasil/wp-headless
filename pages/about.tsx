@@ -22,6 +22,7 @@ function About(page) {
     chars = mySplitText.chars; //an array of all the divs that wrap each character
   
     GSAP.set(".about__title", { perspective: 400 });
+    
     var imagesContent = document.querySelectorAll(
       ".imagem__01",
       );
