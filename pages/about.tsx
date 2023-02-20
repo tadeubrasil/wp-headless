@@ -71,7 +71,7 @@ function About(page) {
         ease: "back",
         scrollTrigger: {
           trigger: imagesContent2,
-          start: "-40px center",  // [trigger] [scroller] positions
+          start: "-20px center",  // [trigger] [scroller] positions
           end: "bottom center", // [trigger] [scroller] positions
           // or relative amount: "+=500"
           scrub: 1, // or time (in seconds) to catch up
