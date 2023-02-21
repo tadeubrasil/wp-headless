@@ -25,6 +25,7 @@
     "autoprefixer": "10.4.7",
     "graphql": "^16.6.0",
     "include-media": "^2.0.0",
+    "jquery": "^3.6.3",
     "lodash": "^4.17.21",
     "next-transpile-modules": "^10.0.0",
     "postcss": "8.4.14",

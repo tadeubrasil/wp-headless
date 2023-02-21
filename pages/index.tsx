@@ -8,6 +8,7 @@ import GSAP from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import imagesLoaded from "imagesloaded";
+import Gallery from "../components/gallery";
 
 import { getPageByHome } from "../lib/api";
 
@@ -84,52 +85,42 @@ function HomePage(page) {
       },
     });
 
-    var rowCards = document.querySelector(".rowCard");
-    var rowCards2 = document.querySelector(".rowCard2");
-    var rowCards3 = document.querySelector(".rowCard3");
 
-    animation.from(rowCards, {
-      opacity: 0,
-      duration: 1,
-      ease: "back",        stagger: {
-        from: "center", //try "center" and "edges"
-        each: 0.05,
-      },
-      scrollTrigger: {
-        trigger: rowCards,
-        start: "-20px center", // [trigger] [scroller] positions
-        end: "bottom center", // [trigger] [scroller] positions
-        // or relative amount: "+=500"
-        scrub: 1, // or time (in seconds) to catch up
-        markers: false, // only during development!
-      },
+    const images = GSAP.utils.toArray('.imageloop');
+    
+      document.body.style.overflow = 'auto';
+      document.scrollingElement.scrollTo(0, 0);
+
+     var colors = [
+      "#fef9f3",
+      "#fef9f3",
+      "#fef9f3",
+      "#fef9f3",
+      "#fef9f3",
+      "#fef9f3",
+      "#fef9f3",
+      "#fef9f3",
+    ];
+
+     GSAP.set(".demo-gallery", {
+      backgroundColor: (i) => colors[i % colors.length],
+      x: (i) => i * 400,
     })
-    .from(rowCards2, {
-      opacity: 0,
-      duration: 1,
-      ease: "back",
-      scrollTrigger: {
-        trigger: rowCards2,
-        start: "-20px center", // [trigger] [scroller] positions
-        end: "bottom center", // [trigger] [scroller] positions
-        // or relative amount: "+=500"
-        scrub: 1, // or time (in seconds) to catch up
-        markers: false, // only during development!
-      },
-    })
-    .from(rowCards3, {
-      opacity: 0,
-      duration: 1,
-      ease: "back",
-      scrollTrigger: {
-        trigger: rowCards3,
-        start: "-20px center", // [trigger] [scroller] positions
-        end: "bottom center", // [trigger] [scroller] positions
-        // or relative amount: "+=500"
-        scrub: 1, // or time (in seconds) to catch up
-        markers: false, // only during development!
-      },
-    });
+
+      GSAP.utils.toArray('section').forEach((section, index) => {
+        const w = document.querySelector('.wrapper') as HTMLInputElement;
+        //const w: HTMLElement = document.querySelector('.wrapper');
+        const [x, xEnd] = index % 2 ? ['100%', (w.scrollWidth - w.offsetWidth) * -1] : [w.scrollWidth * -1, 0];
+        GSAP.fromTo(w, { x }, {
+          x: xEnd,
+          scrollTrigger: {
+            trigger: w,
+            scrub: 0.5  } 
+          });
+      });
+    //};
+
+    //imagesLoaded(images).on('always', showDemo);
 
   }, []);
   return (
@@ -164,108 +155,64 @@ function HomePage(page) {
           <h2 className="about__title text__animation">
             {page.home.content[1].title}
           </h2>
-          <div className="rowCard">
-            <div className="d-flex flex-wrap pb-2">
-              <div className="card mr-3 mb-3">
-                <Image
+          <div className="demo-wrapper">
+          <section className='demo-gallery'>
+            <ul className='wrapper row1'>
+              <li>
+              <Image 
+                unoptimized
+                alt=""
+                src={page.home.galery[0].sourceUrl} 
+                width={800}
+                height={400}
+                className={'image'} 
+              />
+              </li>
+              <li>
+                <Image 
                   unoptimized
                   alt=""
-                  src={page.home.galery[0].sourceUrl}
+                  src={page.home.galery[1].sourceUrl} 
                   width={800}
                   height={400}
-                  className={"image"}
+                  className={'image'} 
                 />
-              </div>
-              <div className="card mr-3 mb-3">
-                <Image
+              </li>
+              <li>
+                <Image 
                   unoptimized
                   alt=""
-                  src={page.home.galery[1].sourceUrl}
+                  src={page.home.galery[2].sourceUrl} 
                   width={800}
                   height={400}
-                  className={"image"}
+                  className={'image'} 
                 />
-              </div>
-              <div className="card mr-3 mb-3">
-                <Image
+              </li>
+              <li>
+                <Image 
                   unoptimized
                   alt=""
-                  src={page.home.galery[2].sourceUrl}
+                  src={page.home.galery[3].sourceUrl} 
                   width={800}
                   height={400}
-                  className={"image"}
+                  className={'image'} 
                 />
-              </div>
-            </div>
+              </li>              <li>
+                <Image 
+                  unoptimized
+                  alt=""
+                  src={page.home.galery[4].sourceUrl} 
+                  width={800}
+                  height={400}
+                  className={'image'} 
+                />
+              </li>
+            </ul>
+          </section>
+
+
           </div>
-          <div className="rowCard2">
-            <div className="d-flex flex-wrap pb-2">
-              <div className="card mr-3 mb-3">
-                <Image
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[4].sourceUrl}
-                  width={800}
-                  height={400}
-                  className={"image"}
-                />
-              </div>
-              <div className="card mr-3 mb-3">
-                <Image
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[5].sourceUrl}
-                  width={800}
-                  height={400}
-                  className={"image"}
-                />
-              </div>
-              <div className="card mr-3 mb-3">
-                <Image
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[6].sourceUrl}
-                  width={800}
-                  height={400}
-                  className={"image"}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="rowCard3 pb-3">
-            <div className="d-flex flex-wrap pb-2">
-              <div className="card mr-3 mb-3">
-                <Image
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[7].sourceUrl}
-                  width={800}
-                  height={400}
-                  className={"image"}
-                />
-              </div>
-              <div className="card mr-3 mb-3">
-                <Image
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[8].sourceUrl}
-                  width={800}
-                  height={400}
-                  className={"image"}
-                />
-              </div>
-              <div className="card mr-3 mb-3">
-                <Image
-                  unoptimized
-                  alt=""
-                  src={page.home.galery[9].sourceUrl}
-                  width={800}
-                  height={400}
-                  className={"image"}
-                />
-              </div>
-            </div>
-          </div>
+
           <p className="about__secondTitle text__animation">
             {page.home.content[2].label}
           </p>

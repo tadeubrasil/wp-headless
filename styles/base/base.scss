@@ -20,10 +20,13 @@ html{
 }
 
 body {
-  @extend %cover;
+  //@extend %cover;
   @extend %description-16;
   font-family: $font-suisse-bp;
   /*position: fixed;*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 a{
