@@ -8,7 +8,7 @@ import GSAP from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import imagesLoaded from "imagesloaded";
-import Gallery from "../components/gallery";
+
 
 import { getPageByHome } from "../lib/api";
 
