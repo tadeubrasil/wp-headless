@@ -155,7 +155,7 @@ Features:
           let t = GSAP.getProperty(el, "width", "px");
           let xP = GSAP.getProperty(el, "x", "px");
           let xPer = GSAP.getProperty(el, "xPercent");
-          let w = (widths[i] = parseFloat(t));
+          let w = (widths[i] = parseFloat(`${t}`));
           xPercents[i] = snap(
            // (parseFloat(GSAP.getProperty(el, "x", "px")) / w) * 100 + GSAP.getProperty(el, "xPercent"),);
            (parseFloat(`${xP}`) / w) * 100 + `${xPer}`,);
