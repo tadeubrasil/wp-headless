@@ -151,13 +151,19 @@ Features:
       GSAP.set(items, {
         // convert "x" to "xPercent" to make things responsive, and populate the widths/xPercents Arrays to make lookups faster.
         xPercent: (i, el) => {
-          let w = (widths[i] = parseFloat(GSAP.getProperty(el, "width", "px")));
+          console.log(GSAP.getProperty(el, "x", "px"));
+          let t = GSAP.getProperty(el, "width", "px");
+          let xP = GSAP.getProperty(el, "x", "px");
+          let xPer = GSAP.getProperty(el, "xPercent");
+          let w = (widths[i] = parseFloat(t));
           xPercents[i] = snap(
-            (parseFloat(GSAP.getProperty(el, "x", "px")) / w) * 100 + GSAP.getProperty(el, "xPercent"),);
+           // (parseFloat(GSAP.getProperty(el, "x", "px")) / w) * 100 + GSAP.getProperty(el, "xPercent"),);
+           (parseFloat(`${xP}`) / w) * 100 + `${xPer}`,);
           return xPercents[i];
         },
       });
       GSAP.set(items, { x: 0 });
+    
       totalWidth =
         items[length - 1].offsetLeft +
         (xPercents[length - 1] / 100) * widths[length - 1] -
